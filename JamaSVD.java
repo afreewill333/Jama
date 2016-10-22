@@ -91,6 +91,14 @@ public class JamaSVD {
 		// Matrix x = A.solve(b);
 		// Matrix Residual = A.times(x).minus(b);
 		// double rnorm = Residual.normInf();
+		
+		System.out.println("#################################################################");
+		for (double[] d : Matrix.random(4, 4).getArray()) {
+			for (double v : d)
+				System.out.print(v + "              ");
+			System.out.println();
+
+		}
 	}
 
 }
