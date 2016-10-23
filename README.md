@@ -7,3 +7,7 @@ https://zhuanlan.zhihu.com/p/22043930#!
 
 http://itindex.net/detail/44080-%E8%AE%A1%E7%AE%97-%E7%9B%B8%E4%BC%BC
 http://52opencourse.com/98/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90
+
+SVD hidden semetic
+http://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html
+http://www.xuebuyuan.com/2039037.html
