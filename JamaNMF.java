@@ -10,6 +10,40 @@ public class JamaNMF {
 		private int pc = 3;
 		private int iter = 50;
 
+		
+		public Matrix getV() {
+			return V;
+		}
+
+		public void setV(Matrix v) {
+			V = v;
+		}
+
+		public Matrix getW() {
+			return W;
+		}
+
+		public Matrix getH() {
+			return H;
+		}
+
+		public int getPc() {
+			return pc;
+		}
+
+		public void setPc(int pc) {
+			this.pc = pc;
+		}
+
+		public int getIter() {
+			return iter;
+		}
+
+		public void setIter(int iter) {
+			this.iter = iter;
+		}
+
+		
 		public void println(Matrix M) {
 			for (double[] d : M.getArray()) {
 				for (double v : d)
@@ -72,13 +106,10 @@ public class JamaNMF {
 						W.set(i, j, val);
 					}
 				}
-
+				
+				this.W=W;
+				this.H=H;
 			}
-			System.out.println("==========================================");
-			println(V);
-			System.out.println("==========================================");
-			println(W.times(H));
-
 		}
 
 	};
@@ -103,55 +134,22 @@ public class JamaNMF {
 	}
 
 	public static void main(String[] args) {
+		JamaNMF jnmf=new JamaNMF();
 
 		double[][] array = { { 22, 28 }, { 49, 64 } };
 		Matrix V = new Matrix(array);
 		
-		//NonnegativeMatrixFactorization nmf=new NonnegativeMatrixFactorization();
-		
-		
-		
-		int ic = V.getRowDimension();
-		int fc = V.getColumnDimension();// feature
-
-		int pc = 3;
-		Matrix W = Matrix.random(ic, pc);
-		Matrix H = Matrix.random(pc, fc);
-
-		int iter = 50;
-		for (int it = 0; it != iter; ++it) {
-			Matrix wh = W.times(H);
-
-			double cost = difcost(V, wh);
-
-			if (it % 10 == 0)
-				System.out.println(cost);
-
-			if (cost == 0)
-				break;
-
-			Matrix hn = W.transpose().times(V);
-			Matrix hd = W.transpose().times(W).times(H);
-			for (int i = 0; i != H.getRowDimension(); i++) {
-				for (int j = 0; j != H.getColumnDimension(); j++) {
-					double val = H.get(i, j) * hn.get(i, j) / hd.get(i, j);
-					H.set(i, j, val);
-				}
-			}
-			Matrix wn = V.times(H.transpose());
-			Matrix wd = W.times(H).times(H.transpose());
-			for (int i = 0; i != W.getRowDimension(); i++) {
-				for (int j = 0; j != W.getColumnDimension(); j++) {
-					double val = W.get(i, j) * wn.get(i, j) / wd.get(i, j);
-					W.set(i, j, val);
-				}
-			}
-
-		}
-		System.out.println("==========================================");
-		println(V);
-		System.out.println("==========================================");
-		println(W.times(H));
+		NonnegativeMatrixFactorization nmf=jnmf.new NonnegativeMatrixFactorization();
+		nmf.setV(V);
+		nmf.setIter(50);
+		nmf.setPc(3);
+		nmf.factorize();
+		System.out.println("--------------------------------------");
+		nmf.println(V);
+		System.out.println("--------------------------------------");
+		nmf.println(nmf.getW());
+		System.out.println("--------------------------------------");
+		nmf.println(nmf.getH());
 	}
 
 }
